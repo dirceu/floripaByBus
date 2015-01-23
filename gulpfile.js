@@ -6,12 +6,16 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var reactify = require('gulp-reactify')({
+  reactTools: require('react-tools')
+});
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  js: ['./js/*.js']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'js']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -25,8 +29,16 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
+gulp.task('js', function() {
+  gulp.src(['./js/floripaByBusAPI.js', './js/viewComponents.js', './js/app.js'])
+    .pipe(reactify)
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('./www/js/'));
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.js, ['js']);
 });
 
 gulp.task('install', ['git-check'], function() {
