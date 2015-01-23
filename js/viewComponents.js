@@ -13,7 +13,7 @@ var Route = React.createClass({
     var routeName = this.props.children.toString();
     return (
       <li className="item item-icon-right" onClick={this.showRouteDetails}>
-        {routeName}
+        {routeName.toLowerCase()}
         <i className="icon ion-chevron-right"></i>
       </li>
     );
@@ -51,7 +51,7 @@ var RouteList = React.createClass({
       );
     });
     return (
-      <ul className="list">
+      <ul className="list route-list">
         {routeNodes}
       </ul>
     );
@@ -63,14 +63,14 @@ var StopList = React.createClass({
     var stops = this.props.data.map(function (stop) {
       return (
         <li className="item">
-          {stop.name}
+          {stop.name.toLowerCase()}
         </li>
       );
     });
     return (
       <div className="stop-list">
         <div className="row">
-          <h2>Stops</h2>
+          <h2 className="title">Stops</h2>
         </div>
         <div className="row">
           <ul className="list">
@@ -91,9 +91,9 @@ var Timetable = React.createClass({
     return (
       <div className="timetable">
         <div className="row">
-          <h2>Timetable</h2>
+          <h2 className="title">Timetable</h2>
         </div>
-        <div className="row responsive-sm">
+        <div className="row">
           <div className="col">
             <h3>Weekday</h3>
             {departures.WEEKDAY}
